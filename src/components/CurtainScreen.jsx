@@ -49,6 +49,13 @@ export default function CurtainScreen({ onOpen }) {
   const m = Math.floor((msLeft % 3_600_000) / 60_000);
   const s = Math.floor((msLeft % 60_000) / 1_000);
 
+  const isPast = msLeft === 0;
+
+  function handleReveal() {
+    setOpening(true);
+    setTimeout(onOpen, 1600);
+  }
+
   return (
     <div className={`curtain-wrapper${opening ? " curtain-opening" : ""}`}>
       <div className="curtain curtain-left" />
@@ -57,13 +64,21 @@ export default function CurtainScreen({ onOpen }) {
       <div className={`curtain-content${opening ? " curtain-content-fade" : ""}`}>
         <p className="curtain-eyebrow">✨ Something special awaits ✨</p>
         <h2 className="curtain-title">Opens at 11:15 PM</h2>
-        <div className="countdown">
-          <Unit value={h} label="hrs" />
-          <span className="countdown-sep">:</span>
-          <Unit value={m} label="min" />
-          <span className="countdown-sep">:</span>
-          <Unit value={s} label="sec" />
-        </div>
+
+        {isPast ? (
+          <button className="curtain-reveal-btn" onClick={handleReveal}>
+            Open your surprise 🎁
+          </button>
+        ) : (
+          <div className="countdown">
+            <Unit value={h} label="hrs" />
+            <span className="countdown-sep">:</span>
+            <Unit value={m} label="min" />
+            <span className="countdown-sep">:</span>
+            <Unit value={s} label="sec" />
+          </div>
+        )}
+
         <p className="curtain-hint">Tonight, just for you 🎂</p>
       </div>
     </div>
