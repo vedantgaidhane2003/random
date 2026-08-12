@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-// Aug 12 at 12:00 AM (for testing)
-const TARGET = new Date(2026, 7, 12, 0, 0, 0, 0);
+// Aug 13 at 12:00 AM
+const TARGET = new Date(2026, 7, 13, 0, 0, 0, 0);
 
 function msUntilTarget() {
   return Math.max(0, TARGET - new Date());
@@ -61,7 +61,7 @@ export default function CurtainScreen({ onOpen }) {
 
       <div className={`curtain-content${opening ? " curtain-content-fade" : ""}`}>
         <p className="curtain-eyebrow">✨ Something special awaits ✨</p>
-        <h2 className="curtain-title">Opens at 12:00 AM</h2>
+        <h2 className="curtain-title">Opens Aug 13 at 12:00 AM</h2>
 
         {isPast ? (
           <button className="curtain-reveal-btn" onClick={handleReveal}>
