@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-// Aug 13 at 12:00 AM (midnight start of Aug 13)
-const TARGET = new Date(2026, 7, 13, 0, 0, 0, 0);
+// Aug 12 at 12:00 AM (for testing)
+const TARGET = new Date(2026, 7, 12, 0, 0, 0, 0);
 
 function msUntilTarget() {
   return Math.max(0, TARGET - new Date());
