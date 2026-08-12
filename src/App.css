@@ -532,6 +532,114 @@ h1 span {
 }
 
 /* =========================
+   CURTAIN SCREEN
+========================= */
+
+.curtain-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  overflow: hidden;
+}
+
+.curtain {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background: linear-gradient(160deg, #3a1a2e, #5c2b47);
+  transition: transform 1.4s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+.curtain-left  { left: 0; }
+.curtain-right { right: 0; }
+
+.curtain-wrapper.curtain-opening .curtain-left  { transform: translateX(-100%); }
+.curtain-wrapper.curtain-opening .curtain-right { transform: translateX(100%); }
+
+.curtain-content {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  padding: 20px;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.curtain-content-fade { opacity: 0; }
+
+.curtain-eyebrow {
+  margin: 0;
+  color: rgba(255, 200, 220, 0.8);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.curtain-title {
+  margin: 0;
+  color: #fff;
+  font-family: "Pacifico", cursive;
+  font-size: clamp(1.6rem, 6vw, 2.8rem);
+  font-weight: 400;
+  text-shadow: 0 2px 20px rgba(255, 100, 160, 0.4);
+}
+
+.countdown {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 12px 16px 8px;
+  min-width: 68px;
+}
+
+.countdown-value {
+  color: #fff;
+  font-size: clamp(1.8rem, 7vw, 3rem);
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.countdown-label {
+  color: rgba(255, 200, 220, 0.7);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.countdown-sep {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.curtain-hint {
+  margin: 4px 0 0;
+  color: rgba(255, 200, 220, 0.6);
+  font-size: 13px;
+}
+
+/* =========================
    TYPEWRITER
 ========================= */
 

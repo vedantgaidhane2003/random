@@ -7,8 +7,12 @@ import QuestionCard from "./components/QuestionCard";
 import Reaction from "./components/Reaction";
 import PhotoGallery from "./components/PhotoGallery";
 import TypewriterText from "./components/TypewriterText";
+import CurtainScreen from "./components/CurtainScreen";
 
 import heroPhoto from "./assets/images/photo-silhouette.jpg";
+
+// Set to true to enable the countdown curtain; false to skip it entirely
+const CURTAIN_ENABLED = true;
 
 const LOVE_NOTE =
   "I am really glad we found each other. From the moment we met, I knew this was something special. You bring so much warmth, laughter and calm into my life — and I hope I do the same for yours. You deserve all the happiness in the world, Teena, and I promise to do my best to give you just that. Wishing you the most beautiful year ahead. Can't wait for everything that is still to come for us. Khup khup shubhechha! ✨";
@@ -24,6 +28,7 @@ function miniConfetti() {
 }
 
 function App() {
+  const [curtainDone, setCurtainDone] = useState(!CURTAIN_ENABLED);
   const [started, setStarted] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState("");
@@ -88,6 +93,10 @@ function App() {
       }, 1800);
     }
   };
+
+  if (!curtainDone) {
+    return <CurtainScreen onOpen={() => setCurtainDone(true)} />;
+  }
 
   if (finished && showGallery) {
     return (
