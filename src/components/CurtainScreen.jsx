@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const TARGET = { hour: 23, minute: 12 };
+const TARGET = { hour: 23, minute: 14 };
 
 function msUntilTarget() {
   const now = new Date();
@@ -19,18 +19,19 @@ function Unit({ value, label }) {
 }
 
 export default function CurtainScreen({ onOpen }) {
+  // Track whether time was already past on mount — if so, only show button (no auto-open)
   const [msLeft, setMsLeft] = useState(msUntilTarget);
+  const [alreadyPast] = useState(() => msUntilTarget() === 0);
   const [opening, setOpening] = useState(false);
 
   useEffect(() => {
+    // If time was already past when page loaded, wait for button click — don't auto-open
+    if (alreadyPast) return;
+
     function triggerOpen() {
+      setMsLeft(0);
       setOpening(true);
       setTimeout(onOpen, 1600);
-    }
-
-    if (msLeft === 0) {
-      const t = setTimeout(triggerOpen, 400);
-      return () => clearTimeout(t);
     }
 
     const id = setInterval(() => {
@@ -63,7 +64,7 @@ export default function CurtainScreen({ onOpen }) {
 
       <div className={`curtain-content${opening ? " curtain-content-fade" : ""}`}>
         <p className="curtain-eyebrow">✨ Something special awaits ✨</p>
-        <h2 className="curtain-title">Opens at 11:12 PM</h2>
+        <h2 className="curtain-title">Opens at 11:14 PM</h2>
 
         {isPast ? (
           <button className="curtain-reveal-btn" onClick={handleReveal}>
