@@ -6,7 +6,9 @@ function msUntilTarget() {
   const now = new Date();
   const t = new Date();
   t.setHours(TARGET.hour, TARGET.minute, 0, 0);
-  return Math.max(0, t - now);
+  // If this time already passed today, target the next occurrence
+  if (t < now) t.setDate(t.getDate() + 1);
+  return t - now;
 }
 
 function Unit({ value, label }) {
@@ -21,13 +23,9 @@ function Unit({ value, label }) {
 export default function CurtainScreen({ onOpen }) {
   // Track whether time was already past on mount — if so, only show button (no auto-open)
   const [msLeft, setMsLeft] = useState(msUntilTarget);
-  const [alreadyPast] = useState(() => msUntilTarget() === 0);
   const [opening, setOpening] = useState(false);
 
   useEffect(() => {
-    // If time was already past when page loaded, wait for button click — don't auto-open
-    if (alreadyPast) return;
-
     function triggerOpen() {
       setMsLeft(0);
       setOpening(true);
