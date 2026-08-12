@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const TARGET = { hour: 23, minute: 15 };
+const TARGET = { hour: 23, minute: 12 };
 
 function msUntilTarget() {
   const now = new Date();
@@ -63,7 +63,7 @@ export default function CurtainScreen({ onOpen }) {
 
       <div className={`curtain-content${opening ? " curtain-content-fade" : ""}`}>
         <p className="curtain-eyebrow">✨ Something special awaits ✨</p>
-        <h2 className="curtain-title">Opens at 11:15 PM</h2>
+        <h2 className="curtain-title">Opens at 11:12 PM</h2>
 
         {isPast ? (
           <button className="curtain-reveal-btn" onClick={handleReveal}>
