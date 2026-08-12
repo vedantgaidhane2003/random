@@ -1,14 +1,10 @@
 import { useState, useEffect } from "react";
 
-const TARGET = { hour: 0, minute: 0 };
+// Aug 13 at 12:00 AM (midnight start of Aug 13)
+const TARGET = new Date(2026, 7, 13, 0, 0, 0, 0);
 
 function msUntilTarget() {
-  const now = new Date();
-  const t = new Date();
-  t.setHours(TARGET.hour, TARGET.minute, 0, 0);
-  // If this time already passed today, target the next occurrence
-  if (t < now) t.setDate(t.getDate() + 1);
-  return t - now;
+  return Math.max(0, TARGET - new Date());
 }
 
 function Unit({ value, label }) {
@@ -23,9 +19,12 @@ function Unit({ value, label }) {
 export default function CurtainScreen({ onOpen }) {
   // Track whether time was already past on mount — if so, only show button (no auto-open)
   const [msLeft, setMsLeft] = useState(msUntilTarget);
+  const [alreadyPast] = useState(() => msUntilTarget() === 0);
   const [opening, setOpening] = useState(false);
 
   useEffect(() => {
+    if (alreadyPast) return;
+
     function triggerOpen() {
       setMsLeft(0);
       setOpening(true);
